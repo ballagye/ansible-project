@@ -1,5 +1,5 @@
 - name: Update les Virtual Machines
-  hosts: all
+  hosts: servers
   become: yes
   tasks:
     - name: Upgrade packages
@@ -19,13 +19,13 @@
 
     - name: prerequesites - docker packages
       ansible.builtin.shell: |
-        sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-      state: present
-      update_cache: yes
-      become: yes
-      
+        sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
-    - name: Verification de l'installation
-      ansible.builtin.command: 
-        sudo systemctl status docker
+    - name: docker are you there ?? (yes)
+      ansible.builtin.shell: |
+        sudo docker --version
+
+
+
+
 
