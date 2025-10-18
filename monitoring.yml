@@ -1,0 +1,33 @@
+- name: Installation de Grafana et prometheus
+  hosts: vm-monitoring
+  tasks:
+    - name: Copy docker-compose.yml 
+      ansible.builtin.copy:
+        src: /home/balla/docker-compose.yml 
+        dest: /home/monitoring/
+
+    - name: Copy prometheus.yml (idk how to loop)
+      ansible.builtin.copy: 
+        src: /home/balla/prometheus.yml
+        dest: /home/monitoring/
+
+
+    - name: Prometheus and node-exporter start
+      ansible.builtin.shell: |
+        docker compose up -d
+      args:
+        chdir: /home/monitoring
+      become: yes
+
+    - name: Get Status
+      ansible.builtin.shell: |
+        docker compose ps
+      register: compose_status
+      become: yes
+
+    - name: print Status
+      ansible.builtin.debug:
+        var: compose_status.stdout_lines
+
+
+  
