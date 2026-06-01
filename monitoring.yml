@@ -6,7 +6,7 @@
         src: /home/balla/docker-compose.yml 
         dest: /home/monitoring/
 
-    - name: Copy prometheus.yml (idk how to loop)
+    - name: Copy prometheus.yml 
       ansible.builtin.copy: 
         src: /home/balla/prometheus.yml
         dest: /home/monitoring/
